@@ -7,13 +7,14 @@ import userRoute from './routes/user.js';
 dotenv.config();
 
 const app = express();
-app.use(cors());
-app.use(express.json());
 
+
+app.use(express.json());
+app.use(cors())
 
 mongoose.connect(process.env.Mongo_Url).then(() => console.log('MongoDB connected...'));
-app.listen(5173, () => {
-    console.log('Server is running on port 5173');  
+app.listen(9000, () => {
+    console.log('Server is running on port 9000');  
 });
 
 app.use('/api/user', userRoute);

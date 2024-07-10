@@ -1,5 +1,7 @@
+import axios from "axios";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import Oauth from "../components/Oauth";
 export default function SignUp() {
     const [Data,setData]  = useState({});
     const [error, setErrors] = useState(false);
@@ -14,13 +16,11 @@ export default function SignUp() {
         try {
             setLoading(true);
             setErrors(false);
-            const response = await fetch('http://localhost:5173/api/auth/signup',{
-                method: 'POST',
+            const response = await axios.post('http://localhost:9000/api/auth/signup',JSON.stringify(Data),{
                 headers: {'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(Data),
             });
-            const data = await response.json();
+            const data = response.json();
             console.log(data);
             setLoading(false);
             if(data.success === false) {
@@ -42,6 +42,7 @@ export default function SignUp() {
                 <input id="password" type="text" placeholder="Password" className="p-3 rounded-lg bg-slate-100" onChange={handleChange} />
                 <input id="email" type="text" placeholder="Email" className="p-3 rounded-lg bg-slate-100" onChange={handleChange}/>
                 <button disabled={loading} type="submit" className="bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-65">{loading ? 'Loading...' : 'Sign Up'}</button>
+                <Oauth/>
             </form>
             <div className="flex pt-4">
                 <p>Already Have an account?</p>

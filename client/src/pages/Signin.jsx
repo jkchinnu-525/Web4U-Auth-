@@ -1,7 +1,9 @@
+import axios from "axios";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { signInFailure, signInStart, signInSuccess } from "../Redux/User/Userslice";
+import Oauth from "../components/Oauth";
 export default function SignIn() {
     const [Data,setData]  = useState({});
     const {loading, error} = useSelector((state) => state.user);
@@ -15,13 +17,13 @@ export default function SignIn() {
         e.preventDefault();
         try {
             dispatch(signInStart());
-            const response = await fetch('http://localhost:5173/api/auth/signin',{
-                method: 'POST',
-                headers: {'Content-Type': 'application/json',
+            const response = await axios.post('http://localhost:9000/api/auth/signin', JSON.stringify(Data), {
+                headers: {
+                    'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(Data),
             });
-            const data = await response.json();
+            console.log(response);
+            const data = response.data;
             if(data.success === false) {
                 dispatch(signInFailure(data));
                 return;
@@ -40,6 +42,7 @@ export default function SignIn() {
                 <input id="email" type="text" placeholder="Email" className="p-3 rounded-lg bg-slate-100" onChange={handleChange}/>
                 <input id="password" type="text" placeholder="Password" className="p-3 rounded-lg bg-slate-100" onChange={handleChange} />
                 <button disabled={loading} type="submit" className="bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-65">{loading ? 'Loading...' : 'Sign In'}</button>
+                <Oauth/>
             </form>
             <div className="flex pt-4">
                 <p>Dont Have an account?</p>
