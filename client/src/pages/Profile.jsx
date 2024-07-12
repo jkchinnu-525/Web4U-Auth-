@@ -12,7 +12,6 @@ export default function Profile() {
     const [imageError, setImageError] = useState(false);
     const [updateSuccess, setUpdateSuccess] = useState(false);
     const [formData, setFormData] = useState({});
-    console.log(formData);
     useEffect(() => {
         if(image) {
             handleFileUpload(image);
@@ -61,10 +60,11 @@ const handleSubmit = async(e) => {
         dispatch(updateUserFailure(error));
     }
 };
+const apiURL1 = `https://web4u-l62e.onrender.com/api/user/delete/${currentUser._id}`;
 const handleDeleteAccount = async() => {
     try {
         dispatch(deleteUserStart());
-        const res = await fetch(`http://localhost:9000/api/user/delete/${currentUser._id}`,{
+        const res = await fetch(apiURL1,{
             method: 'DELETE',
         });
         const data = await res.json();
@@ -77,10 +77,10 @@ const handleDeleteAccount = async() => {
         dispatch(deleteUserFailure(error));
     }
 }
-
+const apiURL2 = "https://web4u-l62e.onrender.com/api/auth/signout"
 const handleSignOut = async () => {
     try {
-        await fetch('http://localhost:9000/api/auth/signout');
+        await fetch(apiURL2);
         dispatch(signOut());
     } catch(error) {
         console.log(error);
