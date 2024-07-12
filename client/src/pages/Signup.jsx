@@ -9,7 +9,6 @@ export default function SignUp() {
     const handleChange = (e) => {
         setData({...Data, [e.target.id]: e.target.value});
     }
-    console.log(Data);
     const apiURL = "https://web4u-l62e.onrender.com/api/auth/signup";
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -23,7 +22,6 @@ export default function SignUp() {
                 body: JSON.stringify(formData),
             });
             const data = await response.json();
-            console.log(data);
             setLoading(false);
             if(data.success === false) {
                 setErrors(true);
