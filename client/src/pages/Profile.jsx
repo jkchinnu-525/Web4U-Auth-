@@ -38,11 +38,12 @@ export default function Profile() {
 const handleChange =(e) => {
     setFormData({...formData,[e.target.id]: e.target.value});
 }
+const apiURL = `https://web4u-l62e.onrender.com/api/user/update/${currentUser._id}`;
 const handleSubmit = async(e) => {
     e.preventDefault();
     try {
         dispatch(updateUserStart());
-        const res = await fetch(`http://localhost:9000/api/user/update/${currentUser._id}`, {
+        const res = await fetch(apiURL, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
