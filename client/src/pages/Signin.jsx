@@ -13,7 +13,7 @@ export default function SignIn() {
         setData({...Data, [e.target.id]: e.target.value});
     }
     console.log(Data);
-    const apiURL = "https://web4u-l62e.onrender.com";
+    const apiURL = "https://web4u-l62e.onrender.com/api/auth/signin";
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
