@@ -10,12 +10,13 @@ export default function SignUp() {
         setData({...Data, [e.target.id]: e.target.value});
     }
     console.log(Data);
+    const apiURL = "https://web4u-l62e.onrender.com";
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             setLoading(true);
             setErrors(false);
-            const response = await fetch('http://localhost:9000/api/auth/signup',{
+            const response = await fetch(apiURL,{
                 method: 'POST',
                 headers: {'Content-Type': 'application/json',
                 },
