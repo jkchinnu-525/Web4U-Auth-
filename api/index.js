@@ -10,9 +10,12 @@ dotenv.config();
 
 const app = express();
 
-
+const corsOptions = {
+    origin: 'http://web4u-l62e.onrender.com', // Your frontend domain
+    optionsSuccessStatus: 200
+};
 app.use(express.json());
-app.use(cors())
+app.use(cors(corsOptions));
 app.use(cookieParser());
 mongoose.connect(process.env.Mongo_Url).then(() => console.log('MongoDB connected...'));
 
