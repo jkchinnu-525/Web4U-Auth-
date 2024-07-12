@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Oauth from "../components/Oauth";
@@ -16,11 +15,13 @@ export default function SignUp() {
         try {
             setLoading(true);
             setErrors(false);
-            const response = await axios.post('http://localhost:9000/api/auth/signup',JSON.stringify(Data),{
+            const response = await fetch('http://localhost:9000/api/auth/signup',{
+                method: 'POST',
                 headers: {'Content-Type': 'application/json',
                 },
+                body: JSON.stringify(formData),
             });
-            const data = response.json();
+            const data = await response.json();
             console.log(data);
             setLoading(false);
             if(data.success === false) {
