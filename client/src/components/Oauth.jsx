@@ -6,12 +6,13 @@ import { app } from '../firebase';
 export default function Oauth() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const apiURL = "https://web4u-l62e.onrender.com/api/auth/google";
     const handleGoogle = async () => {
         try{
             const provider = new GoogleAuthProvider();
             const auth = getAuth(app);
             const result = await signInWithPopup(auth,provider);
-            const res = await fetch('http://localhost:9000/api/auth/google', {
+            const res = await fetch(apiURL, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -23,7 +24,6 @@ export default function Oauth() {
                 })
             });
             const data = await res.json();
-            console.log(data);
             dispatch(signInSuccess(data));
             navigate('/');
         }   catch(error){
